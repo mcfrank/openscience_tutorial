@@ -40,3 +40,7 @@ This workshop will be hands-on throughout! That means you need to install some s
 2:45 - 4:00 - Sharing and managing data using the Open Science Framework (Melissa)
 
 4:00 - 4:30 - Open Science Panel and Q&A
+
+### How to use this repository
+
+To download a copy of this repository (containing all the files above), click the green button at the top right that says "Clone or Download" and choose "Download Zip" to download a copy to your laptop. We recommend waiting to do this until the workshop itself so you have the most up-to-date versions of everything! 

@@ -1,0 +1,140 @@
+---
+title: "intro_to_r"
+author: "Jessica Kosie"
+date: "6/24/2018"
+output: html_document
+---
+
+# Goals 
+
+By the end of this tutorial, you will know:
+
++ Basic R usage (using R as a calculator, creating variables, indexing vectors)
++ How to read in and examine data.
++ How to get values out of the rows and columns in your data.
++ What is a pipe and how to use them.
++ How to change and summarize data using tidyr. 
+
+
+## Basic R Use
+
+R as a calculator
+
+```{r}
+
+# Basic arithmetic
+2+3
+
+# Follows order of operations (PEMDAS)
+(2^3)+4*(5/3)
+
+```
+Assigning values
+
+```{r}
+
+# Create a variable called x, that is assigned the number 8. 
+x <- 8 
+x = 8
+
+# What value did I assign to x?
+x
+
+# Can also assign a range of values
+x <- 1:5 #x is now a vector of 1, 2, 3, 4, 5
+
+# note that x is no longer 8, it take on whatever the most recent assignment was
+
+# Can do operations on this vector using function
+mean(x) #R does these operations on the set of values
+sd(x)
+sum(x)
+
+# more complex operations
+z <- (x-mean(x)/sd(x))
+
+```
+Arrays and counting
+
+```{r}
+
+#let's get the numbers 1 thru 10 by ones 
+1:10
+
+#sequence of numbers, 1 thru 10, by 2
+seq(1,10,2) #can say "by=" before the 2, but it's not necessary
+ 
+```
+> **Exercise.** Create a variable called x that is assigned the number 5. Create a variable called y that is a sequence of numbers ranging from 0 to 25 by 5. Multiply x and y. What happens? 
+```{r}
+
+```
+Creating and indexing matrices
+
+```{r}
+x <- matrix(c(11,12,13,21,22,23), byrow=TRUE,nrow=2) #put into a matrix by row
+x1 <- matrix(c(11,12,13,21,22,23), byrow=FALSE,nrow=2) #put into a matrix by column
+
+#indexing matrices (getting the value that's in a particular row/column)
+
+# x[r,c] would give you the element in row r, column c of the matrix
+
+x[2,3] #gives you the element in row 2 column 3 of matrix x (defined above)
+x[] #all rows, all columns - could have just typed x
+x[1, ] #first row, all columns
+x[ ,3] #all rows, third column
+x[1,3] #first row, third column
+
+y <- x[1,2] #asign the value in the 1st row 2nd column to a new variable
+
+```
+## Reading data into R
+
+First, you'll need to tell R where to look for the data. To do this, you will set your working directory. 
+
+```{r}
+setwd("/Users/jessicakosie/Desktop/openscience_tutorial-master/datasets/")
+
+# if you're using a PC:
+# setwd("C:/Users/YourName/Desktop/openscience_tutorial-master/datasets/")
+
+# In RStudio: Session > Set Working Directory > Choose Directory
+
+# take a look at what's in your directory
+
+dir()
+
+# Now, let's read in the mental_abacus_data CSV file and save it as an object called ma_data
+
+ma_data <- read.csv("mental_abacus_data.csv", header = T)
+
+```
+## Examining the data file
+
+We can simply look at the data frame. We can also get a summary of the data.
+```{r}
+
+View(ma_data)
+summary(ma_data)
+
+```
+> **Exercise.** Read in the pragmatic_scales_data csv file. Save it in an object called ps_data. Get a summary of ps_data. What is the mean age of children in the dataset?
+```{r}
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+

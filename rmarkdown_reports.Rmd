@@ -1,0 +1,30 @@
+
+---
+title: "Open Science ICIS 2018 Workshop"
+author: "Kosie, Frank, Bergelson, Kline"
+date: "6/28/2018"
+output:
+  html_document: default
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+source("intro_to_ggplot2.R")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+later, we will put code to make figures down here!
+
+<!-- eb: some setting is off, when i knit before it made but then deleted an rmarkwdown_reports_files directory,
+can't figure it out right now, wanna show folks the .png file that gets rendered-->
+```{r, graph, echo=F}
+ggplot(data = ps_data_byitem_cond)+
+  geom_point(mapping = aes(x=condition,
+                           y =sum_corr))
+
+```
+
+

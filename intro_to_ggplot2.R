@@ -122,10 +122,11 @@ ggplot(data = iris)+
 
 
 # graph task 2 ------------------------------------------------------------
-#a) using ma_data, set the shape of all the dots in a scatterplot to an asterisk
-#b) using ma_data, map a continuous variable onto color (hint: use 'summary' to see what's continuous!)
-#c) using ma_data, map a discrete variable onto shape
-#d) using ma_data, map a continuous variable onto shape
+#for task 2, use ma_data and a scatterplot of your choosing (jittered if needed!)
+#a) set the shape of all the dots in a scatterplot to an asterisk
+#b) map a continuous variable onto color (hint: use 'summary' to see what's continuous!)
+#c) map a discrete variable (a factor or character) onto shape
+#d) map a continuous variable (an integer or double) onto shape
 #e) make a graph of your choosing using facet_wrap and one with facet_grid: what's the difference?
 
 
@@ -137,145 +138,136 @@ ggplot(data = iris, size =2)+
              size = 4)
 
 # other geoms -------------------------------------------------------------
+#geom_line
+ggplot(data = ma_data, aes(x= factor(year),#this just makes it treat year as a factor
+                           y= arithmeticAverage, 
+                           group = subid))+# this keeps the 'unit' at subid
+  geom_point()+
+  geom_line()
 
-ggplot(data = iris)+
-  geom_point(mapping = aes(x=Sepal.Length,
-                           y =Petal.Width,
-                           color = Species))+
-  geom_hline(yintercept = 2)+
-  geom_text(label = "y=2", x = 4.5, y= 2.5)
+#geom_hline
+#geom_text
+ggplot(data = ps_data_byitem_cond, mapping = aes(x=condition,
+                                                 y=mean_corr))+
+  geom_point()+
+
+  geom_hline(yintercept = .5)+ #hey, this adds a line!
+  geom_text(label = "1b", x = .7, y= .2)# this but '1b' in the corner!
+#the x and y tell it where to put the text, here 'label' is 1 on the x axis
 
 
 # visualizing distributions -----------------------------------------------
-ggplot(data = diamonds, aes(x=price))+
-  geom_histogram(binwidth=100)
-ggplot(data = mpg, aes(x=cyl))+
-  geom_histogram()
-
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+#in 1d
+ggplot(data = ma_data, aes(x=gonogo))+
+  geom_histogram(binwidth=.10)
+# in 2d
+ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
   geom_boxplot()
-
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+# with density info:
+ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
   geom_violin()
 
-# globally declared variables ---------------------------------------------
-#some geom_text examples
-
-ggplot(data = mpg, aes(cty, hwy, label = cyl, color = cyl))+
-  geom_text()
-#let's make cyl even clearer
-ggplot(data = mpg, aes(cty, hwy, label = cyl, color = factor(cyl)))+
-  geom_text()
-#let's have a different text, and be fancy with greek letters
-ggplot(data = mpg, aes(cty, hwy, color = factor(cyl)))+
-  geom_text(label="alpha", parse = T)
+#with density AND dots!
+ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
+  geom_violin()+
+  geom_jitter(width=.1, height=.01, shape =1)# i like shape #1 for overlap
 
 
 # statistical transformation: smoothers ----------------------------------------------
 
 #some stat_smooth examples
 #and examples of 'local' vs. 'global' variable setting
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
+#global x and y, color just for geom_point
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
+  geom_point(mapping = aes(color = grade)) + 
   stat_smooth()
 
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  stat_smooth(data = filter(mpg, class == "subcompact"))
-
-
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  stat_smooth(data = filter(mpg, class != "2seater"), se = FALSE)
-
-#stat_smooth default is loess
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
+#all vars global: what's the difference?
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo, color = grade)) + 
+  geom_point() + 
   stat_smooth()
 
-#but you can make it a line fit
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  stat_smooth(method = "lm")
+#filter the data for a layer
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo, color = grade)) + 
+  geom_point() + 
+  stat_smooth(data = filter(ma_data,grade=="first grade"))# the smoother only gets grade 1 data!
 
+# take out a class, remove confidence bnd
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo, color = grade)) + 
+  geom_point() + 
+  stat_smooth(data = filter(ma_data,group=="MA"), se=F)# the smoother doesn't see MA group
 
+#stat_smooth default is loess (local estimator)
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
+  geom_point(aes(color = grade)) + 
+  stat_smooth()
+
+#you can make it fit a line
+ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
+  geom_point(aes(color = grade)) + 
+  stat_smooth( method="lm")
+
+# Task 3 geoms, distributions, and smoothers-------------------------------------------
+#a: go back to one of the scatter plots from #1 and add a loess smooth, and a line
+#b: using ma_data, make a boxplot of swm for every value of woodcockTotal
+#c: go back to the geom_line graph above and separate the data by grade (multiple solutions!)
 
 # adding error bars -------------------------------------------------------
-#mean Sepal.Width by Species
-ggplot(data = iris, aes(x = Species, y = Sepal.Width)) + 
+#mean by condition
+ggplot(data = ps_data, aes(x = condition, y = correct)) + 
   stat_summary(fun.y=mean, na.rm=T, geom = "bar")
 
 
 #95% confidence interval
-ggplot(data = iris, aes(x = Species, y = Sepal.Width)) + 
+ggplot(data = ps_data, aes(x = condition, y = correct)) + 
   stat_summary(fun.data = mean_cl_boot, geom = "pointrange") #fun.data, not fun.y!
+#mean_cl_boot is boostrapped confidence intervals,you can google what regular normal CIs would be!
 
 #both
-ggplot(data = iris, aes(x = Species, y = Sepal.Width)) + 
+ggplot(data = ps_data, aes(x = condition, y = correct)) + 
   stat_summary(fun.y = mean, na.rm=T, geom = "bar")+
-  stat_summary(fun.data = mean_cl_normal, geom = "pointrange")
-
-# adding manually specified errorbars
-## modifying this example :
-#http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/
-tgc <- ToothGrowth%>%
-  group_by(supp, dose)%>%
-  summarise(n = n(),
-            mean_len = mean(len),
-            sd_len = sd(len),
-            se_len = sd_len/sqrt(n),
-            ci_len = qt((.95/2 +.5),
-                        df= n-1)*se_len) # looking up 95%'s 2 tails in t-dist
-
-ggplot(tgc, aes(x=dose, y=mean_len, colour=supp)) + 
-  geom_errorbar(aes(ymin=mean_len - ci_len, ymax = mean_len + ci_len)) +
-  geom_line() +
-  geom_point()
-
-ggplot(ToothGrowth, aes(x=dose, y=len, colour=supp)) + 
-  stat_summary(fun.data = mean_cl_normal, geom = "errorbar") +
-  stat_summary(fun.y = mean, geom = "point") +
-  stat_summary(fun.y = mean, geom = "line") 
-
+  stat_summary(fun.data = mean_cl_boot, geom = "pointrange")
 
 # errors bars with violins ------------------------------------------------
 # same as violin plot above, but now with an errorbar!
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
   geom_violin()+
   stat_summary(fun.data=mean_cl_normal, geom = "pointrange")
 
-# coordinate and more position transformations ------------------------------------------------
 
-#stack and dodge
+# stack and dodge ------------------------------------------------
+
 #protip: use fill with bars not colour
 ## bonus question: what does colour do for bars?
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+ggplot(data = ma_data) + 
+  geom_bar(mapping = aes(x = woodcockTotal, fill = grade), position = "fill")
 
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "stack")
+ggplot(data = ma_data) + 
+  geom_bar(mapping = aes(x = woodcockTotal, fill = grade), position = "stack")
 
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+ggplot(data = ma_data) + 
+  geom_bar(mapping = aes(x = woodcockTotal, fill = grade), position = "dodge")
 
-# flipping x and y
-#'regular' orientation
-ggplot(mpg, aes(class, hwy, color = factor(cyl))) +
-  stat_summary(fun.data = mean_cl_normal) 
+# task 4: error bars, and stack & dodge------------------------------------------------------------------
+#4a: using the ps dataset, graph means for each item & add error bars
+#4b: make a bargraph of the ps_data_byitem_cond showing the mean_corr for each condition using geom_bar 
+#(hint, you'll need to use "stat=" insde your geom_bar() call
+#4c: when would it be most appropriate to use fill, stack, or dodge?
 
-#just add coord_flip()
-ggplot(mpg, aes(class, hwy, color = factor(cyl))) +
-  stat_summary(fun.data = mean_cl_normal) +
-  coord_flip()
-
-# task 3 ------------------------------------------------------------------
+# task 5 ------------------------------------------------------------------
 #Split into groups for task wishes
 #a) Group A: Distribution-based Wishes
 
 #b) Group B: Time-course graph based wishes
 
 #c) Group C: Individual datapoints + summary stats
-
+#hint for group c
+ggplot(data = ma_data, aes(x= factor(year),#this just makes it treat year as a factor
+                           y= arithmeticAverage, 
+                           group = subid))+# this keeps the 'unit' at subid
+  geom_point()+
+  geom_line()+facet_wrap(~grade)+
+  stat_summary(color = "red", size = 3, geom="line", fun.y=mean, aes(group =grade))
 # saving your graph  -------------------------------------------------------
 ?ggsave()
 
@@ -293,7 +285,17 @@ ggsave("mygraph.pdf",plot = mygraph,dpi = 100)
 # there are LOTS of settings you can muck with (details here https://yihui.name/knitr/options/#plots)
 # we'll do this back in our .rmd file
 
+
+
+
+
+
+
+
+
+
 #time permitting, we can talk about  the following (using some base datasets)
+
 # adding regression line --------------------------------------------------
 # if all we wanted to do was add a regression line, we'd just use stat_smooth:
 # note this is like the graph we did with the errorbars above, just edited a little
@@ -331,3 +333,24 @@ ggplot(ToothGrowth, aes(x=dose, y=len, colour=supp)) +
 11.55 + 7.8*1 + -8.26*1 + 3.9*1*1# dose of 1 for vc
 11.55 + 7.8*2 + -8.26*1 + 3.9*2*1# dose of 1 for vc
 
+
+## manually specified errorbars ---------------
+#http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/
+tgc <- ToothGrowth%>%
+  group_by(supp, dose)%>%
+  summarise(n = n(),
+            mean_len = mean(len),
+            sd_len = sd(len),
+            se_len = sd_len/sqrt(n),
+            ci_len = qt((.95/2 +.5),
+                        df= n-1)*se_len) # looking up 95%'s 2 tails in t-dist
+
+ggplot(tgc, aes(x=dose, y=mean_len, colour=supp)) + 
+  geom_errorbar(aes(ymin=mean_len - ci_len, ymax = mean_len + ci_len)) +
+  geom_line() +
+  geom_point()
+
+ggplot(ToothGrowth, aes(x=dose, y=len, colour=supp)) + 
+  stat_summary(fun.data = mean_cl_normal, geom = "errorbar") +
+  stat_summary(fun.y = mean, geom = "point") +
+  stat_summary(fun.y = mean, geom = "line") 

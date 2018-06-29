@@ -23,7 +23,7 @@ This document is a short tutorial on using RMarkdown to mix prose and code toget
 
 In short: RMarkdown allows you to create documents that are compiled with code, producing your next scientific paper.
 
-Now we're together trying to help spread the word, because it can make writing manuscripts so much easier! We wrote this handout in RMarkdown as well (looks really sweet, no?).
+Now we're together trying to help spread the word, because it can make writing manuscripts so much easier! We wrote this handout in RMarkdown as well. [Take a look at the source.](https://github.com/mcfrank/openscience_tutorial/blob/master/rmarkdown_handout.Rmd)
 
 ## Who is this aimed at?
 
@@ -69,7 +69,7 @@ An RMarkdown file contains several parts. Most essential are the header, the bod
 
 ## Header
 
-Headers in RMarkdown files contain some metadata about your document, which you can customize to your liking. Below is a simple example that purely states the title, author name(s), date, and output format.
+Headers in RMarkdown files contain some metadata about your document, which you can customize to your liking. Below is a simple example that purely states the title, author name(s), date, and output format. 
 
 ```yaml
 ---
@@ -79,6 +79,8 @@ date: "July 28, 2017"
 output: html_document
 ---
 ```
+
+> ProTip: The header is written in "YAML", which means "yet another markup language." You don't need to know that, and don't worry about it. Just make sure you are careful with indenting, as YAML does care about that. 
 
 For now, go ahead and set `html_document` to `word_document`, except if you have strong preferences for `HTML` or `PDF`.^[Note: to create PDF documents you also need a TeX installation. Don't know what that is? You probably don't have it then. More info below.]
 
@@ -114,11 +116,13 @@ Markdown is one of the simplest document languages around, that is an open stand
 You can do some pretty cool tricks with Markdown, but these are the basics:
 
 * It's easy to get `*italic*` or `**bold**`. 
-* You can get headings using `# heading1` for first level, `## heading2` for second-level, and `### heading3` for third level. 
+* You can get headings using `# heading1` for first level, `## heading2` for second-level, and `### heading3` for third level. Make sure you leave a space after the `#`!
 * Lists are delimited with `*` for each entry.
 * You can write links by writing `[here's my link](http://foo.com)`.
 
 If you want a more extensive description of all the potential of Markdown, [this introduction to Markdown](https://daringfireball.net/projects/markdown/) is highly detailed.
+
+The great thing about Markdown is that it works almost everywhere! Github, OSF, slack, many wikis, and even in text documents it looks pretty good. I find myself writing emails in markdown just because it's a clear and consistent way to format and outline. 
 
 ## Exercises
 
@@ -226,6 +230,12 @@ Note that rounding can occasionally get you in trouble here, because it's very e
 ## Exercises
 
 1. Using the `mtcars` dataset, insert a table and a graph of your choice into the document.^[If you're feeling uninspired, try `hist(mtcars$mpg)`.]
+
+# Collaboration 
+
+How do we collaborate using RMarkdown? There are lots of different workflows that people use. The way it works in my lab is that the first author typically makes a github repository with the markdown-formatted document in it. Sometimes we just collaborate through github or through writing comments on the rendered PDF and sending them back to the first author. (I like the dropbox PDF comment interface for this). 
+
+But, sometimes you want to do lots of line-editing or write collaboratively, especially with someone who doesn't like github and markdown and all that. For these cases, we often paste the intro into google docs or Word and edit until we converge, then the first author puts that back into the markdown. This is a little clunky, but not too bad. And critically, all the figures and numbers get rendered fresh when you re-knit, so nothing can get accidentally altered during the editing process.
 
 # Writing APA-format papers
 

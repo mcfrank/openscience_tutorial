@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mike Frank, adapted from work by Mike and Chris Hartgerink" />
 
-<meta name="date" content="2018-06-28" />
+<meta name="date" content="2018-06-29" />
 
 <title>RMarkdown for writing reproducible scientific papers</title>
 
@@ -47,7 +47,7 @@ if (window.hljs) {
 
 <h1 class="title toc-ignore">RMarkdown for writing reproducible scientific papers</h1>
 <h4 class="author"><em><a href="mailto:mcfrank@stanford.edu">Mike Frank</a>, adapted from work by Mike and <a href="mailto:chris@libscie.org">Chris Hartgerink</a></em></h4>
-<h4 class="date"><em>2018-06-28</em></h4>
+<h4 class="date"><em>2018-06-29</em></h4>
 
 
 <div id="TOC">
@@ -57,6 +57,7 @@ if (window.hljs) {
 <li><a href="#structure-of-an-rmarkdown-file">Structure of an RMarkdown file</a></li>
 <li><a href="#markdown-syntax">Markdown syntax</a></li>
 <li><a href="#headers-tables-and-graphs">Headers, Tables, and Graphs</a></li>
+<li><a href="#collaboration">Collaboration</a></li>
 <li><a href="#writing-apa-format-papers">Writing APA-format papers</a></li>
 </ul>
 </div>
@@ -65,7 +66,7 @@ if (window.hljs) {
 <h1>Introduction</h1>
 <p>This document is a short tutorial on using RMarkdown to mix prose and code together for creating reproducible scientific documents. If you find any errors and have a Github account, <strong><a href="https://github.com/mcfrank/openscience_tutorial">please suggest changes here</a></strong>. This is adapted from <a href="https://github.com/mcfrank/rmarkdown-workshop">a slightly longer tutorial that Mike and Chris Hartgerink taught together at SIPS 2017</a>.</p>
 <p>In short: RMarkdown allows you to create documents that are compiled with code, producing your next scientific paper.</p>
-<p>Now we’re together trying to help spread the word, because it can make writing manuscripts so much easier! We wrote this handout in RMarkdown as well (looks really sweet, no?).</p>
+<p>Now we’re together trying to help spread the word, because it can make writing manuscripts so much easier! We wrote this handout in RMarkdown as well. <a href="https://github.com/mcfrank/openscience_tutorial/blob/master/rmarkdown_handout.Rmd">Take a look at the source.</a></p>
 <div id="who-is-this-aimed-at" class="section level2">
 <h2>Who is this aimed at?</h2>
 <p>We aim this document at anyone writing manuscripts and using R, including those who…</p>
@@ -115,6 +116,9 @@ author: &quot;NAME&quot;
 date: &quot;July 28, 2017&quot;
 output: html_document
 ---</code></pre>
+<blockquote>
+<p>ProTip: The header is written in “YAML”, which means “yet another markup language.” You don’t need to know that, and don’t worry about it. Just make sure you are careful with indenting, as YAML does care about that.</p>
+</blockquote>
 <p>For now, go ahead and set <code>html_document</code> to <code>word_document</code>, except if you have strong preferences for <code>HTML</code> or <code>PDF</code>.<label for="tufte-sn-1" class="margin-toggle sidenote-number">1</label><input type="checkbox" id="tufte-sn-1" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">1</span> Note: to create PDF documents you also need a TeX installation. Don’t know what that is? You probably don’t have it then. More info below.</span></p>
 </div>
 <div id="body-text" class="section level2">
@@ -140,11 +144,12 @@ x &lt;- 1 + 1</code></pre>
 <p>You can do some pretty cool tricks with Markdown, but these are the basics:</p>
 <ul>
 <li>It’s easy to get <code>*italic*</code> or <code>**bold**</code>.</li>
-<li>You can get headings using <code># heading1</code> for first level, <code>## heading2</code> for second-level, and <code>### heading3</code> for third level.</li>
+<li>You can get headings using <code># heading1</code> for first level, <code>## heading2</code> for second-level, and <code>### heading3</code> for third level. Make sure you leave a space after the <code>#</code>!</li>
 <li>Lists are delimited with <code>*</code> for each entry.</li>
 <li>You can write links by writing <code>[here's my link](http://foo.com)</code>.</li>
 </ul>
 <p>If you want a more extensive description of all the potential of Markdown, <a href="https://daringfireball.net/projects/markdown/">this introduction to Markdown</a> is highly detailed.</p>
+<p>The great thing about Markdown is that it works almost everywhere! Github, OSF, slack, many wikis, and even in text documents it looks pretty good. I find myself writing emails in markdown just because it’s a clear and consistent way to format and outline.</p>
 <div id="exercises" class="section level2">
 <h2>Exercises</h2>
 <p>Swap over to your new sample markdown.</p>
@@ -362,6 +367,11 @@ kable(tidy(mod), digits = 3)</code></pre>
 <li>Using the <code>mtcars</code> dataset, insert a table and a graph of your choice into the document.<label for="tufte-sn-4" class="margin-toggle sidenote-number">4</label><input type="checkbox" id="tufte-sn-4" class="margin-toggle"><span class="sidenote"><span class="sidenote-number">4</span> If you’re feeling uninspired, try <code>hist(mtcars$mpg)</code>.</span></li>
 </ol>
 </div>
+</div>
+<div id="collaboration" class="section level1">
+<h1>Collaboration</h1>
+<p>How do we collaborate using RMarkdown? There are lots of different workflows that people use. The way it works in my lab is that the first author typically makes a github repository with the markdown-formatted document in it. Sometimes we just collaborate through github or through writing comments on the rendered PDF and sending them back to the first author. (I like the dropbox PDF comment interface for this).</p>
+<p>But, sometimes you want to do lots of line-editing or write collaboratively, especially with someone who doesn’t like github and markdown and all that. For these cases, we often paste the intro into google docs or Word and edit until we converge, then the first author puts that back into the markdown. This is a little clunky, but not too bad. And critically, all the figures and numbers get rendered fresh when you re-knit, so nothing can get accidentally altered during the editing process.</p>
 </div>
 <div id="writing-apa-format-papers" class="section level1">
 <h1>Writing APA-format papers</h1>

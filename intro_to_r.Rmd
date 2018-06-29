@@ -175,6 +175,8 @@ ps_data[3, 4]
 ps_data[4, "item"]
 ```
 
+> ProTip: Many people use this kind of selection to modify individual entries, like if you just want to correct a single mistake at a paticular point in the data frame. Be careful if you do this, as there will be nothing in the code that tells you that `4` is the *right* element to fix, you'll just have to trust that you got that number right. 
+
 ...or select an entire column using the $ operation.
 
 ```{r}
@@ -306,6 +308,8 @@ Or use interactive tools like `View` or `DT::datatable` (which I really like).
 DT::datatable(ps_data) 
 ```
 
+> ProTip: What we're working with is called "tidy data" where each column is one measure, and each row is one observation. This is, by consensus, the best way to work with tabular data in R. It's actually where the name of `tidyverse` comes from. Check out [this paper](https://www.jstatsoft.org/article/view/v059i10) to learn more. BUT - if you normally work with "wide data", where each row is a subject and different trials are different columns (like what SPSS often does), you can get your data "tidy" using a package called `tidyr`, which is also part of the tidyverse. It's a little tricky so we're not teaching it today, but the verbs that it provides are `gather` and `spread`. 
+
 ## Filtering & Mutating
 
 There are lots of reasons you might want to remove *rows* from your dataset, including getting rid of outliers, selecting subpopulations, etc. `filter` is a verb (function) that takes a data frame as its first argument, and then as its second takes the **condition** you want to filter on. 
@@ -345,6 +349,8 @@ ps_data %>%
 
 
 ```
+
+> ProTip: You can think about `filter`ing as similar to "logical indexing", where you use a vector of `TRUE` and `FALSE`s to get a part of a dataset, for example, `ps_data[ps_data$age > 2,]`. This command creates a logical vector `ps_data$age > 2` and uses it as a condition for filtering.
 
 There are also times when you want to add or remove *columns*. You might want to remove columns to simplify the dataset. If you wanted to do that, the verb is `select`. 
 
@@ -441,9 +447,30 @@ ps_means
 ```
 
 
+## Optional: $t$-test
+
+A classic 
+
+Get the subject means. 
+
+```{r}
+ps_sub_means <- ps_data %>%
+  group_by(age_group, subid, condition) %>%
+  summarise(correct = mean(correct), 
+            n_observations = length(subid))
+```
+
+Now do a t-test for all ages.
+
+```{r}
+t.test(ps_sub_means$correct[ps_sub_means$condition == "Label"],
+       ps_sub_means$correct[ps_sub_means$condition == "No Label"])
+```
 
 
+> **Exercise.** Do a t-test for just the 3-4 year olds. 
 
+```{r}
 
+```
 
-.

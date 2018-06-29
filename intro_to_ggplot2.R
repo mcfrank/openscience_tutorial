@@ -55,19 +55,24 @@ ps_data_byitem_cond <- ps_data %>% #take your dataset
 
 # on to graphing! first scatterplots ---------------------------------------------------------
 ?iris
- ggplot(data = iris)+
+ggplot(data = iris)+
    geom_point(mapping = aes(x=Sepal.Length,
                             y =Species))
-
+ps_data_byitem_cond
 ggplot(data = ps_data_byitem_cond)+
   geom_point(mapping = aes(x=condition,
                            y =sum_corr))
-
+ps_data_byitem_cond
 
 #What's wrong with this graph?
 ggplot(data = ma_data)+
   geom_point(mapping = aes(x=grade,
                            y =arithmeticAverage))
+ma_data
+
+
+
+
 
 # jitter those points! ----------------------------------------------------
 # one thing you should always ask yourself is: how many points,bars, lines should i be seeing?
@@ -81,10 +86,10 @@ ggplot(data = ma_data)+
               width = .2,
               height = 0)
 
-# graph task #1: first scatterplots -----------------------------------------------------------
+# Task 1 first scatterplots -----------------------------------------------------------
 
 #a) using the ps_data_byitem_cond, make a scatterplot of mean correct (x axis) by condition (y axis)
-#b) using the built-in iris dataset, make a scatterplot of Sepal.Length by Petal.Width
+#b) using the built-in iris dataset, make a scatterplot of Species by Petal.Width
 #c) using ps_data_bysubj_condition, make a scatterplot of sum correct by condition where you can 
 #appropriately see the dots
 
@@ -121,27 +126,22 @@ ggplot(data = iris)+
   facet_wrap(facets = ~Species)
 
 
-# graph task 2 ------------------------------------------------------------
+# Task 2  ------------------------------------------------------------
 #for task 2, use ma_data and a scatterplot of your choosing (jittered if needed!)
 #a) set the shape of all the dots in a scatterplot to an asterisk
 #b) map a continuous variable onto color (hint: use 'summary' to see what's continuous!)
 #c) map a discrete variable (a factor or character) onto shape
 #d) map a continuous variable (an integer or double) onto shape
-#e) make a graph of your choosing using facet_wrap and one with facet_grid: what's the difference?
+#e) make a graph of your choosing using facet_wrap
+#f) advanced: make a graph of your choosing using facet_wrap AND one with facet_grid: 
+#what's the difference?
 
-
-# r can’t read your mind --------------------------------------------------
-# what's odd about the code below? what will r do to resolve the issue?
-ggplot(data = iris, size =2)+
-  geom_point(mapping = aes(x=Sepal.Length,
-                           y =Petal.Width),
-             size = 4)
 
 # other geoms -------------------------------------------------------------
-#geom_line
+#geom_line graph (we refer to this graph below in task 3c)
 ggplot(data = ma_data, aes(x= factor(year),#this just makes it treat year as a factor
                            y= arithmeticAverage, 
-                           group = subid))+# this keeps the 'unit' at subid
+                           group = subid))+# group keeps the 'unit' at subid
   geom_point()+
   geom_line()
 
@@ -152,12 +152,12 @@ ggplot(data = ps_data_byitem_cond, mapping = aes(x=condition,
   geom_point()+
 
   geom_hline(yintercept = .5)+ #hey, this adds a line!
-  geom_text(label = "1b", x = .7, y= .2)# this but '1b' in the corner!
+  geom_text(label = "1b", x = .7, y= .2, color = "purple")# this but '1b' in the corner!
 #the x and y tell it where to put the text, here 'label' is 1 on the x axis
 
 
 # visualizing distributions -----------------------------------------------
-#in 1d
+#in 1d; we refer to this graph in task 3d
 ggplot(data = ma_data, aes(x=gonogo))+
   geom_histogram(binwidth=.10)
 # in 2d
@@ -170,13 +170,12 @@ ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
 #with density AND dots!
 ggplot(data = ps_data_bysubj_cond, aes(x=condition, y = mean_corr))+
   geom_violin()+
-  geom_jitter(width=.1, height=.01, shape =1)# i like shape #1 for overlap
+  geom_jitter(width=.1, height=.01, shape =1)# i like shape #1 for legibility
 
 
 # statistical transformation: smoothers ----------------------------------------------
-
-#some stat_smooth examples
 #and examples of 'local' vs. 'global' variable setting
+
 #global x and y, color just for geom_point
 ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
   geom_point(mapping = aes(color = grade)) + 
@@ -194,15 +193,16 @@ ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo, color = gr
 
 # take out a class, remove confidence bnd
 ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo, color = grade)) + 
-  geom_point() + 
-  stat_smooth(data = filter(ma_data,group=="MA"), se=F)# the smoother doesn't see MA group
+  geom_point() + #the points include everyone
+  stat_smooth(data = filter(ma_data,group!="MA"), se=F)# but the smoother doesn't see MA group
+#what does se= F do?
 
 #stat_smooth default is loess (local estimator)
 ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
   geom_point(aes(color = grade)) + 
   stat_smooth()
 
-#you can make it fit a line
+#but you can make it fit a line
 ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) + 
   geom_point(aes(color = grade)) + 
   stat_smooth( method="lm")
@@ -211,12 +211,15 @@ ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) +
 #a: go back to one of the scatter plots from #1 and add a loess smooth, and a line
 #b: using ma_data, make a boxplot of swm for every value of woodcockTotal
 #c: go back to the geom_line graph above and separate the data by grade (multiple solutions!)
+#d: more advanced: come up with a solution so that the histogram only has each subject represented 1x
 
 # adding error bars -------------------------------------------------------
-#mean by condition
+#mean by condition, no error bars yet
 ggplot(data = ps_data, aes(x = condition, y = correct)) + 
-  stat_summary(fun.y=mean, na.rm=T, geom = "bar")
-
+  stat_summary(fun.y=mean, 
+               na.rm=T, 
+               geom = "bar")
+#barbarplots? [cf twitter]
 
 #95% confidence interval
 ggplot(data = ps_data, aes(x = condition, y = correct)) + 
@@ -248,26 +251,12 @@ ggplot(data = ma_data) +
 ggplot(data = ma_data) + 
   geom_bar(mapping = aes(x = woodcockTotal, fill = grade), position = "dodge")
 
-# task 4: error bars, and stack & dodge------------------------------------------------------------------
+# Task 4: error bars, and stack & dodge------------------------------------------------------------------
 #4a: using the ps dataset, graph means for each item & add error bars
 #4b: make a bargraph of the ps_data_byitem_cond showing the mean_corr for each condition using geom_bar 
 #(hint, you'll need to use "stat=" insde your geom_bar() call
 #4c: when would it be most appropriate to use fill, stack, or dodge?
 
-# task 5 ------------------------------------------------------------------
-#Split into groups for task wishes
-#a) Group A: Distribution-based Wishes
-
-#b) Group B: Time-course graph based wishes
-
-#c) Group C: Individual datapoints + summary stats
-#hint for group c
-ggplot(data = ma_data, aes(x= factor(year),#this just makes it treat year as a factor
-                           y= arithmeticAverage, 
-                           group = subid))+# this keeps the 'unit' at subid
-  geom_point()+
-  geom_line()+facet_wrap(~grade)+
-  stat_summary(color = "red", size = 3, geom="line", fun.y=mean, aes(group =grade))
 # saving your graph  -------------------------------------------------------
 ?ggsave()
 
@@ -282,10 +271,58 @@ ggsave("mygraph.pdf",plot = mygraph,dpi = 100)
 
 # even better than saving your graph: add it to your R Markdown!------------
 # the awesome thing about using your .rmd file is that you can render graphs there, and they get saved for you!
-# there are LOTS of settings you can muck with (details here https://yihui.name/knitr/options/#plots)
+# there are LOTS of settings you can muck with 
+#(details here https://yihui.name/knitr/options/#plots)
 # we'll do this back in our .rmd file
 
 
+# Task 5 ------------------------------------------------------------------
+#Split into groups for task wishes
+#Group A: Individual datapoints + summary stats
+#Group B: Distribution-based Wishes
+#Group C: Time-course graph based wishes
+
+#hint for group a
+ggplot(data = ma_data, aes(x= factor(year),#this just makes it treat year as a factor
+                           y= arithmeticAverage, 
+                           group = subid))+# this keeps the 'unit' at subid
+  geom_point()+
+  geom_line()+facet_wrap(~grade)+
+  stat_summary(color = "red", size = 3, geom="line", fun.y=mean, aes(group =grade))
+
+#hint 1 for group b
+xvar <- c(rnorm(1500, mean = -1), rnorm(1500, mean = 1.5))
+yvar <- c(rnorm(1500, mean = 1), rnorm(1500, mean = 1.5))
+zvar <- as.factor(c(rep(1, 1500), rep(2, 1500)))
+xy <- data.frame(xvar, yvar, zvar)
+ggplot(xy, aes(xvar, yvar)) + geom_point() + geom_rug(col = "darkred", alpha = 0.1)
+#(further hints: here http://felixfan.github.io/ggplot2-cheatsheet/) and here:
+#https://stackoverflow.com/questions/35366499/
+#  ggplot2-how-to-combine-histogram-rug-plot-and-logistic-regression-prediction
+
+#hint 2 for Group b
+#all the code for this graph appears to be here, BUT this person did not do things the tidy way!
+#https://micahallen.org/2018/03/15/introducing-raincloud-plots/ 
+# exercise for the reader: do his wrangling the tidy way!
+
+#but using our ps_data_bysubj_cond and sourcing this:
+#source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+#you should be able to make your raincloud:)
+
+#hint for group c: here's a sample dataset and a graph to get you started in the right direction
+library(feather)# this is part of tidyverse, but not auto-loaded
+#feather is a format that's convenient for various reasons
+coart<- read_feather("datasets/coart_test")
+summary(coart)
+#do you know what each of these lines do? can you make errorbars?
+ggplot(subset(coart, Nonset<5000 & Nonset>-1500),
+       aes(Nonset, propt, color = TrialType))+
+  geom_hline(yintercept=.5)+
+  ylab("proportion of target looking")+
+  xlab("time from target onset")+
+  geom_vline(xintercept=0)+
+  stat_smooth(geom="point")+
+  theme_bw(base_size=18)
 
 
 
@@ -294,7 +331,10 @@ ggsave("mygraph.pdf",plot = mygraph,dpi = 100)
 
 
 
-#time permitting, we can talk about  the following (using some base datasets)
+
+
+
+#on your own, for the curious:
 
 # adding regression line --------------------------------------------------
 # if all we wanted to do was add a regression line, we'd just use stat_smooth:

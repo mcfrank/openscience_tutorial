@@ -1,4 +1,4 @@
-There are two datasets stored here that we use in the tutorial:
+There are 3 datasets stored here that we use in the tutorial:
 
 ## `mental_abacus_data.csv`
 
@@ -28,3 +28,15 @@ Variables:
 * `correct` - whether the pragmatic inference was made correctly 
 * `age` - age in years
 * `condition` - experimental Label (pragmatic inference) or No Label control (puppet has peanut butter in mouth)
+
+## `coart_test`
+This is a (very) in-prep dataset in the Bergelson lab (h/t grad student Charlotte Moore), but a useful adult eyetracking dataset to play with for graphing some of your graph wishes.
+These are some adult controls for a baby study we're still sorting out about coarticulation effects in word comp.
+This is your usual 2 pictures on the screen, one gets named, with different conditions setup
+All you need to know is that this is eyetracking data that's been binned into 20ms bins in a preprocessing pipeline
+
+Variables:
+* `Nonset`- the onset of the Noun in the carrier phrase eg. 'look at the X', i.e. time 0
+* `propt` - is a 1 or a 0 in every 20ms bin for whether child was looking at target or distractor
+* `TrialType` - is our condition variable, there are 3 conditions, cross, same, unfam; details irrelevant
+ 

@@ -220,6 +220,13 @@ If you haven't installed the package, you'll need to run this command once:
 library("tidyverse")
 ```
 
+We're going to reread the data now, using `read_csv`, which is the `tidyverse` version and works faster and better in a number of ways!
+
+```{r}
+ps_data <- read_csv("datasets/pragmatic_scales_data.csv")
+```
+
+
 ## Pipes
 
 Pipes are a way to write strings of functions more easily. They bring the first argument of the function to the bedginning. So you can write:
@@ -245,7 +252,7 @@ round(mean(unique(ps_data$age)),
 ps_data$age %>% unique %>% mean %>% round(digits = 2)
 
 # indenting makes things even easier to read
-ps_data$age
+ps_data$age %>%
   unique %>% 
   mean %>% 
   round(digits = 2)

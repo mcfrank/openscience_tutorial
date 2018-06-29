@@ -406,7 +406,12 @@ mygraph
 ggsave("mygraph.pdf",plot = mygraph,dpi = 100)
 ```
 
-# even better than saving your graph: add it to your R Markdown!------------
+even better than saving your graph: add it to your R Markdown!
+
+```{r}
+
+```
+
 # the awesome thing about using your .rmd file is that you can render graphs there, and they get saved for you!
 # there are LOTS of settings you can muck with 
 #(details here https://yihui.name/knitr/options/#plots)

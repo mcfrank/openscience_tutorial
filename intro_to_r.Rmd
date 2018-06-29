@@ -78,7 +78,7 @@ seq(0, 1, length.out=11)
 
 ## Functions
 
-`seq` that we used above is a **function**. Everything you typically want to do in statistical programming uses functions. `mean` is another good example. `mean` takes one **argument**, a numeric vector. We are going to **apply** this function to the vector we created in the previous exercise.
+`seq` that we used above is a **function**. Everything you typically want to do in statistical programming uses functions. `mean` is another good example. `mean` takes one **argument**, a numeric vector. We are going to **apply** this function to a new vector.
 
 ```{r}
 z <- 0:20
@@ -313,7 +313,7 @@ DT::datatable(ps_data)
 
 There are lots of reasons you might want to remove *rows* from your dataset, including getting rid of outliers, selecting subpopulations, etc. `filter` is a verb (function) that takes a data frame as its first argument, and then as its second takes the **condition** you want to filter on. 
 
-So if you wanted to look only at the faces items.
+So if you wanted to look only at 2 and 3 year olds.
 
 ```{r}
 ps_data %>%

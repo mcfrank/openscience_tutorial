@@ -1,4 +1,3 @@
-
 ---
 title: "Open Science ICIS 2018 Workshop"
 author: "Kosie, Frank, Bergelson, Kline"
@@ -20,6 +19,7 @@ later, we will put code to make figures down here!
 
 <!-- eb: some setting is off, when i knit before it made but then deleted an rmarkwdown_reports_files directory,
 can't figure it out right now, wanna show folks the .png file that gets rendered-->
+
 ```{r, graph, echo=F}
 ggplot(data = ps_data_byitem_cond)+
   geom_point(mapping = aes(x=condition,

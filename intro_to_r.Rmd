@@ -55,7 +55,6 @@ x <- 1:5 #x is now a vector of 1, 2, 3, 4, 5
 
 # We can also assign a vector of values this way
 x <- c(2, 8, 1, 9)
-
 ```
 
 Vectors are just 1-dimensional lists of numbers.
@@ -169,13 +168,11 @@ Some people like `View(ps_data)` - that shows an interactive "spreadsheet" view.
 You can select entries in the data frame just like indexing a vector. [row, column]
 
 ```{r}
-
 # Get the entry in row 3, column 4.
-ps_data[3,4]
+ps_data[3, 4]
 
 # Get the entry in row 4 of the item column
-ps_data[4,"item"]
-
+ps_data[4, "item"]
 ```
 
 ...or select an entire column using the $ operation.
@@ -272,7 +269,6 @@ Piped version:
 ```{r}
 
 
-
 ```
 
 ## Using `tidyverse` to explore and characterize the dataset
@@ -300,7 +296,6 @@ unique(ps_data$item)
 ps_data$subid %>%
  unique %>%
  length
-
 ```
 
 Or use interactive tools like `View` or `DT::datatable` (which I really like).
@@ -348,9 +343,6 @@ ps_data %>%
 
 ```{r}
 
-ps_data %>%
-  filter(item == "faces", 
-         condition == "Label") 
 
 ```
 
@@ -419,8 +411,8 @@ What `summarise` does is to *apply a function* to a part of the dataset to creat
 
 ps_data %>%
   summarise(correct = mean(correct))
-
 ```
+
 Note the syntax here: `summarise` takes multiple  `new_column_name = function_to_be_applied_to_data(data_column)` entries in a list. Using this syntax, we can create more elaborate summary datasets also:
 
 ```{r}
@@ -444,7 +436,7 @@ ps_means
 > **Exercise.** One of the most important analytic workflows for psychological data is to take some function (e.g., the mean) *for each participant* and then look at grand means and variability *across participant means*. This analytic workflow requires grouping, summarising, and then grouping again and summarising again! Use `dplyr` to make the same table as above (`sgf_means`) but with means (and SDs if you want) computed across subject means, not across all data points. (The means will be pretty similar as this is a balanced design but in a case with lots of missing data, they will vary. In contrast, the SD doesn't even really make sense across the binary data before you aggregate across subjects.) 
 
 ```{r}
-# exercise
+
 
 ```
 

@@ -29,6 +29,8 @@ This workshop will be hands-on throughout! That means you need to install some s
 
 8:30 - 8:45 - Getting Started (Mike) 
 
+8:45 - 11:00 - Introducing R and the Tidyverse (Jessica and Mike)
+
 11:00 - 12:00 - Lunch Break (on your own)
 
 12:00 - 1:15 - Reproducible Reports in RMarkdown (Mike)

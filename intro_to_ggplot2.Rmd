@@ -141,10 +141,10 @@ ggplot(data = ma_data)+
               height = 0)
 ```
 
-> **Exercise.** Task 1. First scatterplots.
-> a) using the ps_data_byitem_cond, make a scatterplot of mean correct (x axis) by condition (y axis)
-> b) using the built-in iris dataset, make a scatterplot of Species by Petal.Width
-> c) using ps_data_bysubj_condition, make a scatterplot of sum correct by condition where you can appropriately see the dots
+##**Exercise.** Task 1. First scatterplots.
++ a) using the ps_data_byitem_cond, make a scatterplot of mean correct (x axis) by condition (y axis)
++ b) using the built-in iris dataset, make a scatterplot of Species by Petal.Width
++ c) using ps_data_bysubj_condition, make a scatterplot of sum correct by condition where you can appropriately see the dots
 
 ## aesthetics 
 
@@ -194,13 +194,13 @@ ggplot(data = iris)+
 ```
 
 
-> **Exercise.** For Task 2, use ma_data and a scatterplot of your choosing (jittered if needed!).
-> a) set the shape of all the dots in a scatterplot to an asterisk
-> b) map a continuous variable onto color (hint: use 'summary' to see what's continuous!)
-> c) map a discrete variable (a factor or character) onto shape
-> d) map a continuous variable (an integer or double) onto shape
-> e) make a graph of your choosing using facet_wrap
-> f) advanced: make a graph of your choosing using facet_wrap AND one with facet_grid:what's the difference?
+## **Exercise.** For Task 2, use ma_data and a scatterplot of your choosing (jittered if needed!).
++ a) set the shape of all the dots in a scatterplot to an asterisk
++ b) map a continuous variable onto color (hint: use 'summary' to see what's continuous!)
++ c) map a discrete variable (a factor or character) onto shape
++ d) map a continuous variable (an integer or double) onto shape
++ e) make a graph of your choosing using facet_wrap
++ f) advanced: make a graph of your choosing using facet_wrap AND one with facet_grid:what's the difference?
 
 # Moving forward: Other geoms 
 
@@ -317,11 +317,11 @@ ggplot(data = ma_data, mapping = aes(x = arithmeticTotal, y = gonogo)) +
   stat_smooth( method="lm")
 ```
 
-> **Exercise.* Task 3. Geoms, distributions, and smoothers.
-#a: go back to one of the scatter plots from #1 and add a loess smooth, and a line
-#b: using ma_data, make a boxplot of swm for every value of woodcockTotal
-#c: go back to the geom_line graph above and separate the data by grade (multiple solutions!)
-#d: more advanced: come up with a solution so that the histogram only has each subject represented 1x
+## **Exercise.** Task 3. Geoms, distributions, and smoothers.
++ a): go back to one of the scatter plots from #1 and add a loess smooth, and a line
++ b): using ma_data, make a boxplot of swm for every value of woodcockTotal
++ c): go back to the geom_line graph above and separate the data by grade (multiple solutions!)
++ d): more advanced: come up with a solution so that the histogram only has each subject represented 1x
 
 # Adding error bars
 
@@ -382,11 +382,11 @@ ggplot(data = ma_data) +
   geom_bar(mapping = aes(x = woodcockTotal, fill = grade), position = "dodge")
 ```
 
-> Exercise. Task 4: error bars, and stack & dodge
-> 4a: using the ps dataset, graph means for each item & add error bars
-> 4b: make a bargraph of the `ps_data_byitem_cond` showing the mean_corr for each condition using geom_bar 
-> (hint, you'll need to use "stat=" insde your `geom_bar()` call
-> 4c: when would it be most appropriate to use `fill`, `stack`, or `dodge`?
+## **Exercise**. Task 4: error bars, and stack & dodge 
++ a): using the ps dataset, graph means for each item & add error bars
++ b): make a bargraph of the `ps_data_byitem_cond` showing the mean_corr for each condition using geom_bar 
+ (hint, you'll need to use "stat=" insde your `geom_bar()` call
++ c): when would it be most appropriate to use `fill`, `stack`, or `dodge`?
 
 ## Saving your graph 
 
@@ -412,10 +412,10 @@ there are LOTS of settings you can muck with. (details here https://yihui.name/k
 
 # Graph Wishes
 
-> **Exercise.** Task 5. Split into groups for task wishes.
-> Group A: Individual datapoints + summary stats. 
-> Group B: Distribution-based Wishes. 
-> Group C: Time-course graph based wishes.
+### **Exercise.** Task 5. Split into groups for task wishes.
++ Group A: Individual datapoints + summary stats. 
++ Group B: Distribution-based Wishes. 
++ Group C: Time-course graph based wishes.
 
 hint for group a
 

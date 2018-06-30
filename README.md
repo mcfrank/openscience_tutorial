@@ -59,3 +59,13 @@ If `tidyverse` doesn't install, try these things:
 library(readr)
 library(tidyr)
 library(dplyr)
+
+### Troubleshooting `knit` and Rmd
+
+[An overview of R and non-western characters (Cyrillic, Chinese, etc.)](https://www.r-bloggers.com/r-and-foreign-characters/)
+
+If you have non-Latin characters in your path (eg your username), the button that says `knit` won't work for you. Instead, type the following in the console (not in your `.Rmd` document):
+
+`knit("mydocument.Rmd", encoding = "utf-8")`
+
+You may find that you have this trouble in other contexts - things are getting better, but in general (for other programming languages too, not just R) if you see messages saying that a program cannot find a file or that a path doesn't exist, it may be this problem happening again!

@@ -171,7 +171,7 @@ You can select entries in the data frame just like indexing a vector. [row, colu
 ps_data[3, 4]
 
 # Get the entry in row 4 of the item column
-ps_data[4, "item"] <- "pasta"
+ps_data[4, "item"] 
 ```
 
 > ProTip: Many people use this kind of selection to modify individual entries, like if you just want to correct a single mistake at a paticular point in the data frame. Be careful if you do this, as there will be nothing in the code that tells you that `4` is the *right* element to fix, you'll just have to trust that you got that number right. 

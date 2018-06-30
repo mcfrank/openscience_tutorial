@@ -63,10 +63,10 @@ Vectors are just 1-dimensional lists of numbers.
 1:10
 
 #sequence of numbers, 1 thru 10, by 2
-seq(1, 10, 2) #can say "by=" before the 2, but it's not necessary
+seq(from = 1, to = 10, by = 2) #can say "from", "to", and "by=", but they're not necessary
 
 #sequence of 11 equally spaced numbers between 0 and 1
-seq(0, 1, length.out=11) 
+seq(from = 0, to = 1, length.out=11) 
 ```
 
 > **Exercise.** Create a variable called x that is assigned the number 5. Create a variable called y that is a sequence of numbers from 5 to 25, by 5. Multiply x and y. What happens? 
@@ -121,7 +121,7 @@ x[1, ] #first row, all columns
 x[ ,3] #all rows, third column
 x[1,3] #first row, third column
 
-y <- x[1,2] #asign the value in the 1st row 2nd column to a new variable
+y <- x[1,2] #assign the value in the 1st row 2nd column to a new variable
 ```
 
 ## Reading data into R
@@ -171,7 +171,7 @@ You can select entries in the data frame just like indexing a vector. [row, colu
 ps_data[3, 4]
 
 # Get the entry in row 4 of the item column
-ps_data[4, "item"]
+ps_data[4, "item"] <- "pasta"
 ```
 
 > ProTip: Many people use this kind of selection to modify individual entries, like if you just want to correct a single mistake at a paticular point in the data frame. Be careful if you do this, as there will be nothing in the code that tells you that `4` is the *right* element to fix, you'll just have to trust that you got that number right. 
@@ -295,8 +295,7 @@ You can look at each variable by itself:
 unique(ps_data$item)
 
 ps_data$subid %>%
- unique %>%
- length
+ unique 
 ```
 
 Or use interactive tools like `View` or `DT::datatable` (which I really like).
@@ -342,14 +341,14 @@ ps_data %>%
 
 ```
 
-**Exercise.** Create a smaller datast with **only** the "face" items in the "Label" condition.
+**Exercise.** Create a smaller datast with **only** the "faces" items in the "Label" condition.
 
 ```{r}
 
 
 ```
 
-> ProTip: You can think about `filter`ing as similar to "logical indexing", where you use a vector of `TRUE` and `FALSE`s to get a part of a dataset, for example, `ps_data[ps_data$age > 2,]`. This command creates a logical vector `ps_data$age > 2` and uses it as a condition for filtering.
+> ProTip: You can think about `filter`ing as similar to "logical indexing", where you use a vector of `TRUE` and `FALSE`s to get a part of a dataset, for example, `ps_data[ps_data$items == "faces",]`. This command creates a logical vector `ps_data$items == "faces"` and uses it as a condition for filtering.
 
 There are also times when you want to add or remove *columns*. You might want to remove columns to simplify the dataset. If you wanted to do that, the verb is `select`. 
 
@@ -405,10 +404,10 @@ What `summarise` does is to *apply a function* to a part of the dataset to creat
 ```{r}
 ## DO NOT DO THIS!!!
 # foo <- initialize_the_thing_being_bound()
-# for (i in 1:length(unique(sgf$item))) {
-#   for (j in 1:length(unique(sgf$condition))) {
-#     this_data <- sgf[sgf$item == unique(sgf$item)[i] & 
-#                       sgf$condition == unique(sgf$condition)[n],]
+# for (i in 1:length(unique(ps_data$item))) {
+#   for (j in 1:length(unique(ps_data$condition))) {
+#     this_data <- ps_data[ps_data$item == unique(ps_data$item)[i] & 
+#                       ps_data$condition == unique(ps_data$condition)[n],]
 #     do_a_thing(this_data)
 #     bind_together_somehow(this_data)
 #   }
@@ -438,7 +437,7 @@ ps_means <- ps_data %>%
 ps_means
 ```
 
-> **Exercise.** One of the most important analytic workflows for psychological data is to take some function (e.g., the mean) *for each participant* and then look at grand means and variability *across participant means*. This analytic workflow requires grouping, summarising, and then grouping again and summarising again! Use `dplyr` to make the same table as above (`sgf_means`) but with means (and SDs if you want) computed across subject means, not across all data points. (The means will be pretty similar as this is a balanced design but in a case with lots of missing data, they will vary. In contrast, the SD doesn't even really make sense across the binary data before you aggregate across subjects.) 
+> **Exercise.** One of the most important analytic workflows for psychological data is to take some function (e.g., the mean) *for each participant* and then look at grand means and variability *across participant means*. This analytic workflow requires grouping, summarising, and then grouping again and summarising again! Use `dplyr` to make the same table as above (`ps_means`) but with means computed across subject means, not across all data points. (The means will be pretty similar as this is a balanced design but in a case with lots of missing data, they will vary.) 
 
 ```{r}
 

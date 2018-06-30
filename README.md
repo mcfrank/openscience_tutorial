@@ -46,3 +46,12 @@ This workshop will be hands-on throughout! That means you need to install some s
 ### How to use this repository
 
 To download a copy of this repository (containing all the files above), click the green button at the top right that says "Clone or Download" and choose "Download Zip" to download a copy to your laptop. We recommend waiting to do this until the workshop itself so you have the most up-to-date versions of everything! 
+
+### Troubleshooting `tidyverse` installs
+
+If `tidyverse` doesn't install, try these things:
+
++ Check if you have the most recent version of R (at time of writing, 3.5). If not, get it from CRAN (google "R CRAN download"), restart, try again. 
++ See if `tidyverse` is trying to "build from source." If it is, try saying "no" to this question and see if that works. 
++ If that doesn't work and you have to install from source, errors may come from not having the appropriate compiler installed on your system. For a mac, this is XCode, which you will need to install from the app store. 
++ If all else fails, try installing an earlier version of tidyverse, e.g. via the package `devtools`. Try `install.packages("devtools")` then `devtools::install_version("tidyverse", version = "1.0.0", repos = "http://cran.us.r-project.org")`.

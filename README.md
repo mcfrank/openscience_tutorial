@@ -54,4 +54,7 @@ If `tidyverse` doesn't install, try these things:
 + Check if you have the most recent version of R (at time of writing, 3.5). If not, get it from CRAN (google "R CRAN download"), restart, try again. 
 + See if `tidyverse` is trying to "build from source." If it is, try saying "no" to this question and see if that works. 
 + If that doesn't work and you have to install from source, errors may come from not having the appropriate compiler installed on your system. For a mac, this is XCode, which you will need to install from the app store. 
-+ If all else fails, try installing an earlier version of tidyverse, e.g. via the package `devtools`. Try `install.packages("devtools")` then `devtools::install_version("tidyverse", version = "1.0.0", repos = "http://cran.us.r-project.org")`.
++ If all else fails, try installing an earlier version of tidyverse, e.g. via the package `devtools`. Try `install.packages("devtools")` then `devtools::install_version("tidyverse", version = "1.0.0", repos = "http://cran.us.r-project.org")`. if that works, you will still find that library("tidyverse") won't work, but you can do the libraries one at a time to get the ones that do, e.g.
+library(readr)
+library(tidyr)
+library(dplyr)

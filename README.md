@@ -36,6 +36,7 @@ This workshop will be hands-on throughout! That means you need to install some s
 12:00 - 1:15 - Reproducible Reports in RMarkdown (Mike)
 
 1:15 - 2:30 - Intro to GGPlot (Elika)
+<https://docs.google.com/presentation/d/1nzqs7sKOr4LWIJC6y15PLWA93zrY6jlF3xqA68frQ9A/edit#slide=id.g3a3b804d26_0_12>
 
 2:30 - 2:45 - Mid-afternoon break
 
